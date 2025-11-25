@@ -1,35 +1,45 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
 import './App.css'
+import { AuthProvider } from './context/auth.context'
+import { ToastProvider } from './context/toast.context'
+import { BrowserRouter, Route, Routes } from 'react-router-dom'
+import ManagerLayout from './shared/layouts/ManagerLayout'
+import Home from './pages/Home'
+import AnonymousRoute from './shared/components/AnonymousRoute'
+import AnonymousLayout from './shared/layouts/AnomnymousLayout'
+import Login from './pages/auth/Login'
+import PrivateRoute from './shared/components/PrivateRoute'
 
 function App() {
-  const [count, setCount] = useState(0)
 
   return (
-    // <>
-    //   <div>
-    //     <a href="https://vite.dev" target="_blank">
-    //       <img src={viteLogo} className="logo" alt="Vite logo" />
-    //     </a>
-    //     <a href="https://react.dev" target="_blank">
-    //       <img src={reactLogo} className="logo react" alt="React logo" />
-    //     </a>
-    //   </div>
-    //   <h1>Vite + React</h1>
-    //   <div className="card">
-    //     <button onClick={() => setCount((count) => count + 1)}>
-    //       count is {count}
-    //     </button>
-    //     <p>
-    //       Edit <code>src/App.tsx</code> and save to test HMR
-    //     </p>
-    //   </div>
-    //   <p className="read-the-docs">
-    //     Click on the Vite and React logos to learn more
-    //   </p>
-    // </>
-    <ToastProvider></ToastProvider>
+    <ToastProvider>
+      <AuthProvider>
+        <BrowserRouter>
+          <div className='main-content min-h-screen flex flex-col'>
+            <Routes>
+              {/* Admin Router */}
+              <Route element={<PrivateRoute requiredRoles={["Admin", "HR Manager", "Recruiter"]} />}>
+                <Route path='/' element={<ManagerLayout><Home /></ManagerLayout>}></Route>
+                <Route path='/users' element={<ManagerLayout><Home /></ManagerLayout>}></Route>
+                <Route path='/' element={<ManagerLayout><Home /></ManagerLayout>}></Route>
+                <Route path='/' element={<ManagerLayout><Home /></ManagerLayout>}></Route>
+                <Route path='/' element={<ManagerLayout><Home /></ManagerLayout>}></Route>
+                <Route path='/' element={<ManagerLayout><Home /></ManagerLayout>}></Route>
+                <Route path='/' element={<ManagerLayout><Home /></ManagerLayout>}></Route>
+                <Route path='/' element={<ManagerLayout><Home /></ManagerLayout>}></Route>
+              </Route>
+
+              <Route element={<AnonymousRoute />}>
+                {/* Auth Router */}
+                <Route path="/auth/login" element={<AnonymousLayout><Login /></AnonymousLayout>}>
+                </Route>
+              </Route>
+              <Route path="/403" element></Route>
+            </Routes>
+          </div>
+        </BrowserRouter>
+      </AuthProvider>
+    </ToastProvider>
   )
 }
 
