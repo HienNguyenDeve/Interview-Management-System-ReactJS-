@@ -8,6 +8,8 @@ import AnonymousRoute from './shared/components/AnonymousRoute'
 import AnonymousLayout from './shared/layouts/AnomnymousLayout'
 import Login from './pages/auth/Login'
 import PrivateRoute from './shared/components/PrivateRoute'
+import UserList from './pages/manager/user/UserList'
+import CandidateList from './pages/manager/candidate/CandidateList'
 
 function App() {
 
@@ -20,8 +22,8 @@ function App() {
               {/* Admin Router */}
               <Route element={<PrivateRoute requiredRoles={["Admin", "HR Manager", "Recruiter"]} />}>
                 <Route path='/' element={<ManagerLayout><Home /></ManagerLayout>}></Route>
-                <Route path='/users' element={<ManagerLayout><Home /></ManagerLayout>}></Route>
-                <Route path='/' element={<ManagerLayout><Home /></ManagerLayout>}></Route>
+                <Route path='/users' element={<ManagerLayout><UserList /></ManagerLayout>}></Route>
+                <Route path='/candidates' element={<ManagerLayout><CandidateList /></ManagerLayout>}></Route>
                 <Route path='/' element={<ManagerLayout><Home /></ManagerLayout>}></Route>
                 <Route path='/' element={<ManagerLayout><Home /></ManagerLayout>}></Route>
                 <Route path='/' element={<ManagerLayout><Home /></ManagerLayout>}></Route>
