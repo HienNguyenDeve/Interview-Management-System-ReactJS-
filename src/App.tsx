@@ -10,6 +10,8 @@ import Login from './pages/auth/Login'
 import PrivateRoute from './shared/components/PrivateRoute'
 import UserList from './pages/manager/user/UserList'
 import CandidateList from './pages/manager/candidate/CandidateList'
+import InterviewList from './pages/manager/interview/InterviewList'
+import { JobList } from './pages/manager/job/JobList'
 
 function App() {
 
@@ -24,8 +26,8 @@ function App() {
                 <Route path='/' element={<ManagerLayout><Home /></ManagerLayout>}></Route>
                 <Route path='/users' element={<ManagerLayout><UserList /></ManagerLayout>}></Route>
                 <Route path='/candidates' element={<ManagerLayout><CandidateList /></ManagerLayout>}></Route>
-                <Route path='/' element={<ManagerLayout><Home /></ManagerLayout>}></Route>
-                <Route path='/' element={<ManagerLayout><Home /></ManagerLayout>}></Route>
+                <Route path='/interviews' element={<ManagerLayout><InterviewList /></ManagerLayout>}></Route>
+                <Route path='/jobs' element={<ManagerLayout><JobList /></ManagerLayout>}></Route>
                 <Route path='/' element={<ManagerLayout><Home /></ManagerLayout>}></Route>
                 <Route path='/' element={<ManagerLayout><Home /></ManagerLayout>}></Route>
                 <Route path='/' element={<ManagerLayout><Home /></ManagerLayout>}></Route>
