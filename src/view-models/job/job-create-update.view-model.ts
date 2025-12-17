@@ -2,8 +2,8 @@ import { FormikValues } from "formik";
 
 export interface JobCreateUpdateViewModel extends FormikValues{
     title: string;
-    startDate: Date | null;
-    endDate: Date | null;
+    startDate: string;
+    endDate: string;
     workingAddress: string;
     description: string;
     salaryFrom: number;

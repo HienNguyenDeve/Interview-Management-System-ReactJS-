@@ -58,8 +58,8 @@ export const JobCreateUpdate = (props: JobProps) => {
     // initialValues
     const initialValues: JobCreateUpdateViewModel = {
         title: item ? item.title : '',
-        startDate: item ? moment(item.startDate).toDate() : null,
-        endDate: item ? moment(item.endDate).toDate() : null,
+        startDate: item ? moment(item.startDate).format('YYYY-MM-DD') : '',
+        endDate: item ? moment(item.endDate).format('YYYY-MM-DD') : '',
         workingAddress: item ? item.workingAddress : '',
         description: item ? item.description : '',
         salaryFrom: item ? item.salaryFrom : 0,
