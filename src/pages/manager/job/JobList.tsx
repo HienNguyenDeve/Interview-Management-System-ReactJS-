@@ -14,9 +14,12 @@ import { TableColumnModel } from "../../../models/table-column.model";
 import * as Yup from 'yup';
 import { FormField } from "../../../shared/components/FormBase";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faEdit, faEye, faSortAlphaAsc, faSortAlphaDesc, faTrash } from "@fortawesome/free-solid-svg-icons";
+import { faClose, faEdit, faEye, faSortAlphaAsc, faSortAlphaDesc, faTrash } from "@fortawesome/free-solid-svg-icons";
 import { JobService } from "../../../services/job.service";
 import { JobCreateUpdate } from "./JobCreateUpdate";
+import { Modal } from "../../../core/components/modals/Modal";
+import { ModalSize } from "../../../enums/modal-size.enum";
+import { ModalType } from "../../../enums/modal-type.enum";
 
 export const JobList = () => {
     // variables
@@ -25,7 +28,7 @@ export const JobList = () => {
     const [benefits, setBenefits] = useState<BenefitBaseViewModel[]>([]);
     const [levels, setLevels] = useState<LevelBaseViewModel[]>([]);
     const [isDetailModalOpen, setIsDetailModalOpen] = useState(false);
-    const [selectedModal, setSelectedModal] = useState<string | null>(null);
+    const [selectedJob, setSelectedJob] = useState<string | null>(null);
 
     // fetchData
     const getSkills = useCallback(async () => {
@@ -202,28 +205,53 @@ export const JobList = () => {
 
     // view Detail
     const onViewDetail = useCallback((item: JobMasterViewModel) => {
-        setSelectedModal(item.description);
+        setSelectedJob(item.description);
         setIsDetailModalOpen(true);
     }, []);
 
     const handleCloseModal = () => {
-        setSelectedModal(null);
+        setSelectedJob(null);
         setIsDetailModalOpen(false);
     }
 
     // return
     return (
-        <MasterList<JobMasterViewModel, JobSearchViewModel>
-            title="Job Management"
-            sortBy="title"
-            columns={columns}
-            initialFilter={initialValues}
-            validationSchema={validationSchema}
-            fetchData={fetchData}
-            EntityCreateUpdateComponent={JobCreateUpdate}
-            searchFields={searchFields}
-            pageSizeList={[5, 10, 20, 50, 100]}
-            ref={masterListRef}
-        ></MasterList>
+        <>
+            <MasterList<JobMasterViewModel, JobSearchViewModel>
+                title="Job Management"
+                sortBy="title"
+                columns={columns}
+                initialFilter={initialValues}
+                validationSchema={validationSchema}
+                fetchData={fetchData}
+                EntityCreateUpdateComponent={JobCreateUpdate}
+                searchFields={searchFields}
+                pageSizeList={[5, 10, 20, 50, 100]}
+                ref={masterListRef}
+            ></MasterList>
+            {selectedJob && (
+                <Modal
+                    title="Job description"
+                    isOpen={isDetailModalOpen}
+                    onClose={handleCloseModal}
+                    modalSize={ModalSize.SMALL}
+                    modalType={ModalType.INFO}
+                    footer={(
+                        <div className="flex justify-end space-x-3">
+                            <button type="button" onClick={handleCloseModal} 
+                                className="p-2 px-4 bg-blue-500 text-white
+                                    hover:bg-blue-700 rounded-full">
+                                <FontAwesomeIcon icon={faClose} className="mr-2"></FontAwesomeIcon>
+                                Close
+                            </button>
+                        </div>
+                    )}
+                >
+                    <div className="p-4">
+                        {selectedJob}
+                    </div>
+                </Modal>
+            )}
+        </>
     )
 }

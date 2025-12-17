@@ -3,8 +3,8 @@ import { SearchFilterViewModel } from "../search-filter.view-model";
 export class JobSearchViewModel extends SearchFilterViewModel {
     public salaryFrom?: number;
     public salaryTo?: number;
-    public startDate?: Date | null;
-    public endDate?: Date | null;
+    public startDate?: string | null;
+    public endDate?: string | null;
     public status?: string;
     public benefitIds?: string[];
     public levelIds?: string[];
